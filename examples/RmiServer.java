@@ -11,6 +11,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 	}
 	
 	public String getMessage() {
+		System.out.println("getMessage() method requested");
 		return MESSAGE;
 	}
 	
