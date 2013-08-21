@@ -11,10 +11,24 @@ public class Whiteboard implements MouseListener {
 	private int last_x;
 	private int last_y;
 	
-	public void mousePressed(MouseEvent m) {	
+	public void mousePressed(MouseEvent m) {
+		if (color.getRed() == 255) 
+			color = color.green;
+			// color = new Color(0, 255, 0);
+		else if (color.getGreen() == 255) 
+			color = color.blue;
+		else 
+			color = color.red;
 	}
 	
 	public void mouseReleased(MouseEvent m) {
+		int x = m.getX();
+		int y = m.getY();
+		Graphics g = frame.getGraphics();
+		g.setColor(color);
+		g.drawLine(last_x, last_y, x, y);
+		last_x = x;
+		last_y = y;
 	}
 	
 	public void mouseEntered(MouseEvent m) {
@@ -24,13 +38,6 @@ public class Whiteboard implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent m) {
-		int x = m.getX();
-		int y = m.getY();
-		Graphics g = frame.getGraphics();
-		g.setColor(color);
-		g.drawLine(last_x, last_y, x, y);
-		last_x = x;
-		last_y = y;
 	}
 	
 	public Whiteboard() {
