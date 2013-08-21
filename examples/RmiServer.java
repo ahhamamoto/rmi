@@ -20,7 +20,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 		try {
 			LocateRegistry.createRegistry(1099);
 			System.out.println("RMI registry started");
-		} catch {
+		} catch (RemoteException e) {
 			System.out.println("RMI registry already exists");
 		}
 		
