@@ -30,7 +30,13 @@ public class RmiClient implements MouseListener {
     g.drawLine(last_x, last_y, x, y);
     last_x = x;
     last_y = y;
-    obj.sendCoordinate(x, y);
+    try {
+      System.out.println("Mandando nova coordenada");
+      this.obj.sendCoordinate(x, y);
+      this.obj.getMessage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void mouseEntered(MouseEvent m) {
@@ -51,10 +57,14 @@ public class RmiClient implements MouseListener {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.addMouseListener(this);
 
-    obj = (RmiServerIntf)Naming.lookup("//localhost/RmiServer");
+    try {
+      this.obj = (RmiServerIntf)Naming.lookup("//localhost/RmiServer");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  public static void main(String args[]) {
+  public static void main(String args[]) throws Exception {
     Whiteboard w = new Whiteboard();
   }
 }
