@@ -4,13 +4,22 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Código da classe do quadro branco.
+ */
+
 public class Whiteboard implements MouseListener {
 	private static JFrame frame;
 	private static int W = 600, H = 480;
 	private Color color;
 	private int last_x;
 	private int last_y;
-	
+
+  /**
+   * Código de quando o mouse é executado.
+   * @param m O evento lançado pelo mouse.
+   * Quando o mouse é pressionado, ele muda de cor.
+   */
 	public void mousePressed(MouseEvent m) {
 		if (color.getRed() == 255) 
 			color = color.green;
