@@ -6,6 +6,8 @@ import javax.swing.*;
 
 /**
  * Código da classe do quadro branco.
+ * @author Anderson
+ * @author Natan
  */
 
 public class Whiteboard implements MouseListener {

@@ -11,12 +11,16 @@ import java.rmi.registry.*;
 	*/
 public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 	public static final String MESSAGE = "Hello World!";
+  protected int[] coordinate;
 	
 	/**
 		* Construtor da classe.
 		*/
 	public RmiServer() throws RemoteException {
 		super(0);
+    coordinate = new int[2];
+    coordinate[0] = 0;
+    coordinate[1] = 0;
 	}
 	
 	/**
@@ -30,6 +34,16 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 		System.out.println("getMessage() method requested");
 		return MESSAGE;
 	}
+
+  public int[] getLastCoordinate() {
+    return coordinate;
+  }
+
+  public void sendCoordinate(int x, int y) {
+    coordinate[0] = x;
+    coordinate[1] = y;
+    System.out.println("New coordinates received");
+  }
 	
 	/**
 		* Método main que cria o registro e binda o programa com o localhost.

@@ -10,5 +10,8 @@ public class RmiClient {
 	public static void main(String args[]) throws Exception {
 		RmiServerIntf obj = (RmiServerIntf)Naming.lookup("//localhost/RmiServer");
 		System.out.println(obj.getMessage());
+    obj.sendCoordinate(2, 3);
+    int[] coor = obj.getLastCoordinate();
+    System.out.println(coor[0] + " " + coor[1]);
 	}
 }

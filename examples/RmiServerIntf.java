@@ -6,4 +6,6 @@ import java.rmi.RemoteException;
 	*/
 public interface RmiServerIntf extends Remote {
 	public String getMessage() throws RemoteException;
+  public int[] getLastCoordinate() throws RemoteException;
+  public void sendCoordinate(int x, int y) throws RemoteException;
 }
