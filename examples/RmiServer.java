@@ -42,7 +42,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
   public void sendCoordinate(int x, int y) {
     coordinate[0] = x;
     coordinate[1] = y;
-    System.out.println("New coordinates received: " + x + y);
+    System.out.println("New coordinates received: " + x +" " + y);
   }
 	
 	/**

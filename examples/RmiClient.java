@@ -65,6 +65,7 @@ public class RmiClient implements MouseListener {
   }
 
   public static void main(String args[]) throws Exception {
-    Whiteboard w = new Whiteboard();
+    RmiClient rmi = new RmiClient();
+    //Whiteboard w = new Whiteboard();
   }
 }
