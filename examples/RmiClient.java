@@ -7,10 +7,7 @@ import javax.swing.*;
 	* Classe do cliente que simplesmente manda a requisição e imprime uma mensagem.
 	*/
 public class RmiClient implements MouseListener {
-  private RmiServerIntf obj;
   private static JFrame frame;
-  private static int W = 600, H = 480;
-  private Color color;
   private int last_x;
   private int last_y;
 
@@ -30,13 +27,6 @@ public class RmiClient implements MouseListener {
     g.drawLine(last_x, last_y, x, y);
     last_x = x;
     last_y = y;
-    try {
-      System.out.println("Mandando nova coordenada");
-      this.obj.sendCoordinate(x, y);
-      this.obj.getMessage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   public void mouseEntered(MouseEvent m) {
