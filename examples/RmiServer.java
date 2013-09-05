@@ -10,17 +10,14 @@ import java.rmi.registry.*;
 	* de volta para o cliente.
 	*/
 public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
-	public static final String MESSAGE = "Hello World!";
-  protected int[] coordinate;
-	
+	private String message;
+
 	/**
 		* Construtor da classe.
 		*/
-	public RmiServer() throws RemoteException {
-		super(0);
-    coordinate = new int[2];
-    coordinate[0] = 0;
-    coordinate[1] = 0;
+	public RmiServer(String str) throws RemoteException {
+    super(0);
+    this.message = str;
 	}
 	
 	/**
@@ -32,8 +29,9 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 		*/
 	public String getMessage() {
 		System.out.println("getMessage() method requested");
-		return MESSAGE;
+		return this.message;
 	}
+<<<<<<< HEAD
 
   public int[] getLastCoordinate() {
     return coordinate;
@@ -44,6 +42,8 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
     coordinate[1] = y;
     System.out.println("New coordinates received: " + x +" " + y);
   }
+=======
+>>>>>>> 451a81876292e9445a8e6fc56b464fa81364c709
 	
 	/**
 		* Método main que cria o registro e binda o programa com o localhost.
@@ -58,7 +58,7 @@ public class RmiServer extends UnicastRemoteObject implements RmiServerIntf {
 			System.out.println("RMI registry already exists");
 		}
 		
-		RmiServer obj = new RmiServer();
+		RmiServer obj = new RmiServer("Hello!");
 		
 		Naming.rebind("//localhost/RmiServer", obj);
 		System.out.println("PeerServer bound in registry");
