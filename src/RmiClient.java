@@ -10,7 +10,9 @@ public class RmiClient extends UnicastRemoteObject implements IClient, MouseList
 	private Color color; /**< A cor das linhas desenhadas por esse cliente. */
 	private IServer server = null; /**< Variável para o servidor. */
 	private int last_x; /**< Valor do último ponto na coordenada x. */
-	private int last_y; /**< Valir do último ponto na coordenada y. */
+	private int last_y; /**< Valor do último ponto na coordenada y. */
+	private String board; /**< Nome da board a qual o cliente faz parte. */
+	private String ip;
 
 	public void mousePressed(MouseEvent m) {
 	}
@@ -28,7 +30,7 @@ public class RmiClient extends UnicastRemoteObject implements IClient, MouseList
 		g.setColor(color);
 		g.drawLine(last_x, last_y, x, y);
 		try{
-			server.sendLine(last_x, last_y, x, y, this);
+			server.sendLine(last_x, last_y, x, y, this.board);
 		} catch(RemoteException e){
 			e.printStackTrace();
 		}
@@ -51,13 +53,21 @@ public class RmiClient extends UnicastRemoteObject implements IClient, MouseList
 		g.drawLine(x1, y1, x2, y2);
 		this.last_x = x2;
 		this.last_y = y2;
-
-		System.out.println("Server received line: " + x1 + " " + y1 + " " + x2 + " " +y2);
+	}
+	
+	public void changeServer(String new_server) throws RemoteException {
+		try {
+			server = (IServer)Naming.lookup("//" + new_server + "/RmiServer");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public RmiClient() throws RemoteException{
+	public RmiClient(String ip, String board) throws RemoteException {
 		// this.last_x = 2;
 		// this.last_y = 25;
+		this.ip = ip;
+		this.board = board;
 		frame = new JFrame("Whiteboard");
 		frame.setSize(W, H);
 		frame.setVisible(true);
@@ -65,10 +75,10 @@ public class RmiClient extends UnicastRemoteObject implements IClient, MouseList
 		frame.addMouseListener(this);
 
 		try {
-			server = (IServer)Naming.lookup("//localhost/RmiServer");
-			int[] coord = server.setClient(this);
-			this.last_x = coord[0];
-			this.last_y = coord[1];
+			server = (IServer)Naming.lookup("//" + this.ip + "/RmiServer");
+			server.setClient(this, board);
+			this.last_x = 2;
+			this.last_y = 25;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +86,9 @@ public class RmiClient extends UnicastRemoteObject implements IClient, MouseList
 
 	public static void main(String args[]) throws Exception {
 		try {
-			RmiClient rmi = new RmiClient();
+			if (args.length == 2) {
+				RmiClient rmi = new RmiClient(args[0], args[1]);
+			}
 		} catch(RemoteException e){
 			e.printStackTrace();
 		}

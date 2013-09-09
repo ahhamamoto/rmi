@@ -10,4 +10,6 @@ public interface IClient extends Remote{
 	 * @param y2 Coordenada y do ponto 2.
 	 */
 	public void drawLine(int x1, int y1, int x2, int y2) throws RemoteException;
+	
+	public void changeServer(String new_server) throws RemoteException;
 }
