@@ -11,27 +11,29 @@ interface ServerRemote extends Remote {
 }
 
 class Client implements ClientRemote {
-    public Client() throws Remote Exception {
-	UnicastRemoteObject.exportObject(this, 0);
+	
+    public Client() throws RemoteException {
+		UnicastRemoteObject.exportObject(this, 0);
     }
 
     public void doSomething() throws RemoteException {
-	System.out.println("Server invoked doSomething()");
+		System.out.println("Server invoked doSomething()");
     }
 }
 
 class Server implements ServerRemote {
+	
     private volatile ClientRemote client;
 
     public Server() throws RemoteException {
-	UnicastRemoteObject.exportObject(this, 0);
+		UnicastRemoteObject.exportObject(this, 0);
     }
 
     public void registerClient(ClientRemote client) throws RemoteException {
-	this.client = client;
+		this.client = client;
     }
 
     public void doSomethingOnClient() throws RemoteException {
-	client.doSomething();
+		client.doSomething();
     }
 }
